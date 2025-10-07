@@ -4,100 +4,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/x-icon" href="icon.png">
-    <title>Weather App</title>
+    <title>SkyCast – Intelligent Weather Dashboard</title>
 </head>
 
 <body>
-    <div class="input-container">
-        <input id="input-box" type="text" placeholder="Name of the city">
-        <button id="sub-btn" type="submit"> Get weather </button>
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+    <div class="glow glow-3"></div>
+
+    <div class="app-shell">
+        <header class="top-bar">
+            <div class="brand">
+                <div class="brand-icon">☀️</div>
+                <div class="brand-copy">
+                    <h1>SkyCast</h1>
+                    <p>Live weather intelligence crafted for every screen.</p>
+                </div>
+            </div>
+            <p class="updated" id="updated-time">Search for any city to begin.</p>
+        </header>
+
+        <main class="layout">
+            <section class="card search-card">
+                <form id="search-form" class="search-form">
+                    <span class="search-icon">🔍</span>
+                    <input id="input-box" type="text" placeholder="Enter a city" autocomplete="off">
+                    <button id="sub-btn" type="submit">Search</button>
+                </form>
+                <div class="suggestions">
+                    <p class="suggestions-label">Popular cities:</p>
+                    <div class="suggestion-buttons">
+                        <button type="button" class="suggestion-btn" data-city="New York">New York</button>
+                        <button type="button" class="suggestion-btn" data-city="London">London</button>
+                        <button type="button" class="suggestion-btn" data-city="Dubai">Dubai</button>
+                        <button type="button" class="suggestion-btn" data-city="Tokyo">Tokyo</button>
+                        <button type="button" class="suggestion-btn" data-city="Sydney">Sydney</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card current-weather">
+                <div class="current-overview">
+                    <div class="temperature">
+                        <span id="current-temp" class="current-temp">--°</span>
+                        <div class="temperature-meta">
+                            <p id="current-description" class="current-description">Awaiting data…</p>
+                            <p class="current-feels">Feels like <span id="current-feels">--°</span></p>
+                            <p id="current-range" class="current-range">High --° • Low --°</p>
+                        </div>
+                    </div>
+                    <div class="current-location">
+                        <img id="current-icon" src="" alt="Weather icon" class="current-icon" />
+                        <div>
+                            <h2 id="current-city">Your city</h2>
+                            <p id="current-country" class="muted">---</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="current-metrics">
+                    <div class="metric">
+                        <span class="label">Humidity</span>
+                        <span class="value" id="current-humidity">--%</span>
+                    </div>
+                    <div class="metric">
+                        <span class="label">Pressure</span>
+                        <span class="value" id="current-pressure">-- hPa</span>
+                    </div>
+                    <div class="metric">
+                        <span class="label">Wind</span>
+                        <span class="value" id="current-wind">-- km/h</span>
+                        <span class="muted" id="current-wind-direction">--</span>
+                    </div>
+                    <div class="metric">
+                        <span class="label">Visibility</span>
+                        <span class="value" id="current-visibility">-- km</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card highlights">
+                <div class="section-heading">
+                    <h2>Today's Highlights</h2>
+                    <p>Key indicators to understand today's atmosphere.</p>
+                </div>
+                <div class="highlight-grid">
+                    <article class="highlight-card">
+                        <div class="icon">🌅</div>
+                        <p class="label">Sunrise</p>
+                        <p class="value" id="sunrise-time">--:--</p>
+                    </article>
+                    <article class="highlight-card">
+                        <div class="icon">🌇</div>
+                        <p class="label">Sunset</p>
+                        <p class="value" id="sunset-time">--:--</p>
+                    </article>
+                    <article class="highlight-card wind-card">
+                        <div class="icon">🍃</div>
+                        <p class="label">Wind Direction</p>
+                        <p class="value" id="wind-direction-label">--</p>
+                        <div class="wind-arrow" id="wind-arrow"></div>
+                    </article>
+                    <article class="highlight-card">
+                        <div class="icon">☁️</div>
+                        <p class="label">Cloud Cover</p>
+                        <p class="value" id="current-clouds">--%</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="card forecast-section">
+                <div class="section-heading">
+                    <h2>5-Day Outlook</h2>
+                    <p>Stay prepared for the days ahead.</p>
+                </div>
+                <div class="forecast-grid">
+                    <article class="forecast-card" id="day1">
+                        <p class="day">--</p>
+                        <img src="" alt="" class="icon">
+                        <p class="temp">--°</p>
+                        <p class="detail">---</p>
+                    </article>
+                    <article class="forecast-card" id="day2">
+                        <p class="day">--</p>
+                        <img src="" alt="" class="icon">
+                        <p class="temp">--°</p>
+                        <p class="detail">---</p>
+                    </article>
+                    <article class="forecast-card" id="day3">
+                        <p class="day">--</p>
+                        <img src="" alt="" class="icon">
+                        <p class="temp">--°</p>
+                        <p class="detail">---</p>
+                    </article>
+                    <article class="forecast-card" id="day4">
+                        <p class="day">--</p>
+                        <img src="" alt="" class="icon">
+                        <p class="temp">--°</p>
+                        <p class="detail">---</p>
+                    </article>
+                    <article class="forecast-card" id="day5">
+                        <p class="day">--</p>
+                        <img src="" alt="" class="icon">
+                        <p class="temp">--°</p>
+                        <p class="detail">---</p>
+                    </article>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>Powered by OpenWeather • Designed to shine on every device</p>
+        </footer>
     </div>
-    <div class="info-container">
-        <h1 id="city-name"> </h1>
-        <div class="main-info">
-            <div class="temp-info">
-                <div class="main-temp">
-                    <p class="item" id="temp"> </p>
-                </div>
-                <div class="real-feel">
-                    <p class="item" id="feels-like"></p>
-                </div>
-            </div>
-            <span class="bar"> | </span>
-            <div class="sky-info">
-                <img class="item" id="icon" src="">
-                <p class="item" id="description"> </p>
-            </div>
-        </div>
-        <div class="secondary-info">
-            <div class="test">
-                <div class="air-info">
-                    <div class="humidity">
-                        <p class="item" id="humidity"> </p>
-                        <img src="images/humidity.png">
-                    </div>
-                    <div class="pressure">
-                        <p class="item" id="pressure"></p>
-                        <img src="images/pressure.png">
-                    </div>
-                </div>
 
-                <div class="wind-info">
-                    <div class="wind-speed">
-                        <p class="item" id="wind-speed"></p>
-                        <img src="images/wind.png">
-                    </div>
-                    <div class="wind-direction">
-                        <p class="item" id="wind-degree"></p>
-                        <img src="images/wind-direction.png">
-                    </div>
-                </div>
-            </div>
-
-            <div class="sun-info">
-                <div class="sunrise">
-                    <p class="item" id="sunrise-time"> </p>
-                    <img src="images/sunrise.png" id="sunrise-icon">
-                </div>
-                <div class="sunset">
-                    <p class="item" id="sunset-time"> </p>
-                    <img src="images/sunset.png" id="sunset-icon">
-                </div>
-            </div>
-        </div>
-
-
-
-        <div class="forecast">
-            <div class="days" id="day1">
-                <h2 class="date"></h2>
-                <img src="">
-                <p></p>
-            </div>
-            <div class="days" id="day2">
-                <h2 class="date"></h2>
-                <img src="">
-                <p></p>
-            </div>
-            <div class="days" id="day3">
-                <h2 class="date"></h2>
-                <img src="">
-                <p></p>
-            </div>
-            <div class="days" id="day4">
-                <h2 class="date"></h2>
-                <img src="">
-                <p></p>
-            </div>
-            <div class="days" id="day5">
-                <h2 class="date"></h2>
-                <img src="">
-                <p></p>
-            </div>
-        </div>
-    </div>
     <script src="main.js"></script>
 </body>
 
