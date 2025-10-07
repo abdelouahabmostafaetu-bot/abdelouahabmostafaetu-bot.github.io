@@ -1,186 +1,98 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abdelouahab Mostafa - Creative Portfolio</title>
+    <title>Tetris Game - Play Now!</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <!-- Animated Background -->
-    <div class="animated-bg">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
+    <div class="background">
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
     </div>
-
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-content">
-                <div class="logo">
-                    <span class="logo-icon">✨</span>
-                    <span class="logo-text">AM</span>
+    <div class="game-container">
+        <header class="game-header">
+            <h1 class="game-title">
+                <span class="icon"></span>
+                TETRIS GAME
+            </h1>
+            <p class="game-subtitle">Classic Block Puzzle</p>
+        </header>
+        <div class="game-wrapper">
+            <div class="side-panel">
+                <div class="panel-card">
+                    <h3>Next Block</h3>
+                    <canvas id="nextCanvas" width="120" height="120"></canvas>
                 </div>
-                <div class="nav-links">
-                    <a href="#home" class="nav-link active">Home</a>
-                    <a href="#about" class="nav-link">About</a>
-                    <a href="#services" class="nav-link">Services</a>
-                    <a href="#contact" class="nav-link">Contact</a>
+                <div class="panel-card stats-card">
+                    <h3>Statistics</h3>
+                    <div class="stat-item">
+                        <span class="stat-label">Score</span>
+                        <span class="stat-value" id="score">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Lines</span>
+                        <span class="stat-value" id="lines">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Level</span>
+                        <span class="stat-value" id="level">1</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">High Score</span>
+                        <span class="stat-value" id="highScore">0</span>
+                    </div>
                 </div>
-                <button id="themeBtn" class="theme-btn">
-                    <span class="icon sun">☀️</span>
-                    <span class="icon moon">🌙</span>
-                </button>
+                <div class="panel-card controls-card">
+                    <h3>Controls</h3>
+                    <div class="control-item"><span> </span><span>Move</span></div>
+                    <div class="control-item"><span></span><span>Rotate</span></div>
+                    <div class="control-item"><span></span><span>Drop Faster</span></div>
+                    <div class="control-item"><span>SPACE</span><span>Hard Drop</span></div>
+                </div>
             </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <div class="badge">👋 Welcome</div>
-                    <h1 class="hero-title">
-                        Hi, I'm <span class="gradient-text">Abdelouahab Mostafa</span>
-                    </h1>
-                    <p class="hero-description">
-                        Creative Developer | Designer | Innovator<br>
-                        Transforming ideas into beautiful digital experiences
-                    </p>
-                    <div class="hero-buttons">
-                        <button class="btn btn-primary">
-                            <span>Get In Touch</span>
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                                <path
-                                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" />
-                            </svg>
-                        </button>
-                        <button class="btn btn-secondary">View Projects</button>
-                    </div>
-                    <div class="social-links">
-                        <a href="#" class="social-link">💼</a>
-                        <a href="#" class="social-link">🐦</a>
-                        <a href="#" class="social-link">📸</a>
-                        <a href="#" class="social-link">💻</a>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <div class="image-container">
-                        <div class="profile-card">
-                            <div class="profile-avatar">AM</div>
-                            <div class="profile-info">
-                                <h3>Abdelouahab M.</h3>
-                                <p>Creative Developer</p>
-                            </div>
-                            <div class="profile-stats">
-                                <div class="stat">
-                                    <span class="stat-value">50+</span>
-                                    <span class="stat-label">Projects</span>
-                                </div>
-                                <div class="stat">
-                                    <span class="stat-value">5+</span>
-                                    <span class="stat-label">Years</span>
-                                </div>
-                            </div>
-                        </div>
+            <div class="game-board-container">
+                <canvas id="gameCanvas" width="300" height="600"></canvas>
+                <div id="gameOver" class="game-over hidden">
+                    <div class="game-over-content">
+                        <h2>Game Over!</h2>
+                        <p class="final-score">Score: <span id="finalScore">0</span></p>
+                        <button id="restartBtn" class="btn-restart">Play Again</button>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Search Section -->
-    <section class="search-section">
-        <div class="container">
-            <div class="search-wrapper">
-                <h2 class="search-title">Explore & Discover</h2>
-                <p class="search-subtitle">Search for anything you need</p>
-                <div class="search-container">
-                    <div class="search-box">
-                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="m21 21-4.35-4.35"></path>
-                        </svg>
-                        <input type="text" class="search-input" id="searchInput" placeholder="Search anything..."
-                            autocomplete="off">
-                        <button class="search-btn" id="searchBtn">
-                            <span>Search</span>
-                        </button>
-                    </div>
-                    <div class="search-suggestions" id="suggestions"></div>
+            <div class="mobile-controls">
+                <div class="control-row">
+                    <button class="control-btn" id="rotateBtn"><span></span></button>
+                </div>
+                <div class="control-row">
+                    <button class="control-btn" id="leftBtn"><span></span></button>
+                    <button class="control-btn" id="downBtn"><span></span></button>
+                    <button class="control-btn" id="rightBtn"><span></span></button>
+                </div>
+                <div class="control-row">
+                    <button class="control-btn drop-btn" id="dropBtn"><span> DROP</span></button>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="services-section">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">What I Do</span>
-                <h2 class="section-title">My Services</h2>
-                <p class="section-description">Delivering excellence through creativity and innovation</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon-wrapper">
-                        <div class="service-icon">🎨</div>
-                    </div>
-                    <h3 class="service-title">UI/UX Design</h3>
-                    <p class="service-description">
-                        Creating beautiful and intuitive user interfaces that deliver exceptional user experiences.
-                    </p>
-                    <ul class="service-features">
-                        <li>✓ Wireframing & Prototyping</li>
-                        <li>✓ User Research</li>
-                        <li>✓ Interactive Design</li>
-                    </ul>
-                </div>
-                <div class="service-card featured">
-                    <div class="featured-badge">⭐ Popular</div>
-                    <div class="service-icon-wrapper">
-                        <div class="service-icon">💻</div>
-                    </div>
-                    <h3 class="service-title">Web Development</h3>
-                    <p class="service-description">
-                        Building responsive, fast, and modern websites with cutting-edge technologies.
-                    </p>
-                    <ul class="service-features">
-                        <li>✓ Frontend Development</li>
-                        <li>✓ Backend Integration</li>
-                        <li>✓ Performance Optimization</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon-wrapper">
-                        <div class="service-icon">🚀</div>
-                    </div>
-                    <h3 class="service-title">Digital Strategy</h3>
-                    <p class="service-description">
-                        Strategic planning and consulting to help your business thrive in the digital world.
-                    </p>
-                    <ul class="service-features">
-                        <li>✓ Digital Consulting</li>
-                        <li>✓ Brand Strategy</li>
-                        <li>✓ Growth Planning</li>
-                    </ul>
-                </div>
-            </div>
+        <div class="game-controls">
+            <button id="startBtn" class="btn btn-primary">
+                <span class="btn-icon"></span>
+                <span class="btn-text">Start Game</span>
+            </button>
+            <button id="pauseBtn" class="btn btn-secondary hidden">
+                <span class="btn-icon"></span>
+                <span class="btn-text">Pause</span>
+            </button>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 Abdelouahab Mostafa. All rights reserved.</p>
-        </div>
-    </footer>
-
+        <footer class="game-footer">
+            <p>Created by Abdelouahab Mostafa | 2025</p>
+        </footer>
+    </div>
     <script src="script.js"></script>
 </body>
-
 </html>
