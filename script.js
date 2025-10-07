@@ -1,41 +1,505 @@
-﻿const COLS=10,ROWS=20,BLOCK_SIZE=30;
-const COLORS=[null,'#FF6B6B','#4ECDC4','#45B7D1','#FFA07A','#98D8C8','#F7DC6F','#BB8FCE'];
-const SHAPES=[[],[[1,1,1,1]],[[2,2],[2,2]],[[0,3,0],[3,3,3]],[[0,4,4],[4,4,0]],[[5,5,0],[0,5,5]],[[6,0,0],[6,6,6]],[[0,0,7],[7,7,7]]];
-let board=[],currentPiece=null,nextPiece=null,score=0,lines=0,level=1,highScore=localStorage.getItem('tetrisHighScore')||0;
-let gameInterval=null,isGameOver=false,isPaused=false,dropSpeed=1000;
-const gameCanvas=document.getElementById('gameCanvas'),gameCtx=gameCanvas.getContext('2d');
-const nextCanvas=document.getElementById('nextCanvas'),nextCtx=nextCanvas.getContext('2d');
-const scoreElement=document.getElementById('score'),linesElement=document.getElementById('lines');
-const levelElement=document.getElementById('level'),highScoreElement=document.getElementById('highScore');
-const finalScoreElement=document.getElementById('finalScore'),gameOverElement=document.getElementById('gameOver');
-const startBtn=document.getElementById('startBtn'),pauseBtn=document.getElementById('pauseBtn'),restartBtn=document.getElementById('restartBtn');
-const leftBtn=document.getElementById('leftBtn'),rightBtn=document.getElementById('rightBtn'),downBtn=document.getElementById('downBtn');
-const rotateBtn=document.getElementById('rotateBtn'),dropBtn=document.getElementById('dropBtn');
-function initBoard(){board=Array(ROWS).fill().map(()=>Array(COLS).fill(0))}
-function createPiece(){const type=Math.floor(Math.random()*7)+1;return{shape:SHAPES[type],color:type,x:Math.floor(COLS/2)-Math.floor(SHAPES[type][0].length/2),y:0}}
-function drawBlock(ctx,x,y,color){ctx.fillStyle=COLORS[color];ctx.fillRect(x*BLOCK_SIZE,y*BLOCK_SIZE,BLOCK_SIZE,BLOCK_SIZE);const gradient=ctx.createLinearGradient(x*BLOCK_SIZE,y*BLOCK_SIZE,(x+1)*BLOCK_SIZE,(y+1)*BLOCK_SIZE);gradient.addColorStop(0,'rgba(255,255,255,0.3)');gradient.addColorStop(1,'rgba(0,0,0,0.3)');ctx.fillStyle=gradient;ctx.fillRect(x*BLOCK_SIZE,y*BLOCK_SIZE,BLOCK_SIZE,BLOCK_SIZE);ctx.strokeStyle='rgba(0,0,0,0.2)';ctx.lineWidth=2;ctx.strokeRect(x*BLOCK_SIZE,y*BLOCK_SIZE,BLOCK_SIZE,BLOCK_SIZE)}
-function drawBoard(){gameCtx.clearRect(0,0,gameCanvas.width,gameCanvas.height);for(let y=0;y<ROWS;y++){for(let x=0;x<COLS;x++){if(board[y][x])drawBlock(gameCtx,x,y,board[y][x])}}}
-function drawPiece(){if(!currentPiece)return;currentPiece.shape.forEach((row,y)=>{row.forEach((value,x)=>{if(value)drawBlock(gameCtx,currentPiece.x+x,currentPiece.y+y,currentPiece.color)})})}
-function drawNext(){nextCtx.clearRect(0,0,nextCanvas.width,nextCanvas.height);if(!nextPiece)return;const offsetX=(nextCanvas.width/BLOCK_SIZE-nextPiece.shape[0].length)/2;const offsetY=(nextCanvas.height/BLOCK_SIZE-nextPiece.shape.length)/2;nextPiece.shape.forEach((row,y)=>{row.forEach((value,x)=>{if(value)drawBlock(nextCtx,offsetX+x,offsetY+y,nextPiece.color)})})}
-function checkCollision(piece,offsetX=0,offsetY=0){for(let y=0;y<piece.shape.length;y++){for(let x=0;x<piece.shape[y].length;x++){if(piece.shape[y][x]){const newX=piece.x+x+offsetX,newY=piece.y+y+offsetY;if(newX<0||newX>=COLS||newY>=ROWS)return true;if(newY>=0&&board[newY][newX])return true}}}return false}
-function mergePiece(){currentPiece.shape.forEach((row,y)=>{row.forEach((value,x)=>{if(value){const boardY=currentPiece.y+y,boardX=currentPiece.x+x;if(boardY>=0)board[boardY][boardX]=currentPiece.color}})})}
-function clearLines(){let linesCleared=0;for(let y=ROWS-1;y>=0;y--){if(board[y].every(cell=>cell!==0)){board.splice(y,1);board.unshift(Array(COLS).fill(0));linesCleared++;y++}}if(linesCleared>0){lines+=linesCleared;score+=linesCleared*100*level;level=Math.floor(lines/10)+1;dropSpeed=Math.max(100,1000-(level-1)*100);updateStats();if(gameInterval){clearInterval(gameInterval);gameInterval=setInterval(gameLoop,dropSpeed)}}}
-function movePiece(direction){if(isGameOver||isPaused)return;const offset=direction==='left'?-1:direction==='right'?1:0;if(!checkCollision(currentPiece,offset,0)){currentPiece.x+=offset;draw()}}
-function rotatePiece(){if(isGameOver||isPaused)return;const rotated=currentPiece.shape[0].map((_,i)=>currentPiece.shape.map(row=>row[i]).reverse());const previousShape=currentPiece.shape;currentPiece.shape=rotated;if(checkCollision(currentPiece))currentPiece.shape=previousShape;draw()}
-function dropPiece(){if(isGameOver||isPaused)return;if(!checkCollision(currentPiece,0,1)){currentPiece.y++}else{mergePiece();clearLines();currentPiece=nextPiece;nextPiece=createPiece();drawNext();if(checkCollision(currentPiece))gameOver()}draw()}
-function hardDrop(){if(isGameOver||isPaused)return;while(!checkCollision(currentPiece,0,1)){currentPiece.y++;score+=2}dropPiece();updateStats()}
-function draw(){drawBoard();drawPiece()}
-function updateStats(){scoreElement.textContent=score;linesElement.textContent=lines;levelElement.textContent=level;if(score>highScore){highScore=score;localStorage.setItem('tetrisHighScore',highScore);highScoreElement.textContent=highScore}}
-function gameLoop(){if(!isPaused&&!isGameOver)dropPiece()}
-function startGame(){initBoard();score=0;lines=0;level=1;dropSpeed=1000;isGameOver=false;isPaused=false;currentPiece=createPiece();nextPiece=createPiece();updateStats();draw();drawNext();gameOverElement.classList.add('hidden');startBtn.classList.add('hidden');pauseBtn.classList.remove('hidden');if(gameInterval)clearInterval(gameInterval);gameInterval=setInterval(gameLoop,dropSpeed)}
-function pauseGame(){isPaused=!isPaused;if(isPaused){pauseBtn.querySelector('.btn-text').textContent='Resume';pauseBtn.querySelector('.btn-icon').textContent=''}else{pauseBtn.querySelector('.btn-text').textContent='Pause';pauseBtn.querySelector('.btn-icon').textContent=''}}
-function gameOver(){isGameOver=true;clearInterval(gameInterval);finalScoreElement.textContent=score;gameOverElement.classList.remove('hidden');pauseBtn.classList.add('hidden');startBtn.classList.remove('hidden')}
-document.addEventListener('keydown',(e)=>{if(isGameOver)return;switch(e.key){case 'ArrowLeft':movePiece('left');break;case 'ArrowRight':movePiece('right');break;case 'ArrowDown':dropPiece();break;case 'ArrowUp':rotatePiece();break;case ' ':e.preventDefault();hardDrop();break;case 'p':case 'P':pauseGame();break}});
-startBtn.addEventListener('click',startGame);pauseBtn.addEventListener('click',pauseGame);restartBtn.addEventListener('click',startGame);
-leftBtn.addEventListener('click',()=>movePiece('left'));rightBtn.addEventListener('click',()=>movePiece('right'));
-downBtn.addEventListener('click',()=>dropPiece());rotateBtn.addEventListener('click',()=>rotatePiece());dropBtn.addEventListener('click',()=>hardDrop());
-[leftBtn,rightBtn,downBtn,rotateBtn,dropBtn].forEach(btn=>{btn.addEventListener('touchstart',(e)=>{e.preventDefault();btn.click()})});
-highScoreElement.textContent=highScore;drawBoard();
-console.log('%c TETRIS GAME','font-size:24px;color:#667eea;font-weight:bold');
-console.log('%c Created by Abdelouahab Mostafa','font-size:14px;color:#94a3b8');
-console.log('%c Have fun playing! ','font-size:14px;color:#4ade80');
+﻿// Theme Toggle
+const themeToggle = document.getElementById("themeToggle");
+const body = document.body;
+
+// Load saved theme
+const savedTheme = localStorage.getItem("theme") || "dark";
+body.setAttribute("data-theme", savedTheme);
+
+themeToggle.addEventListener("click", () => {
+    const currentTheme = body.getAttribute("data-theme");
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    body.setAttribute("data-theme", newTheme);
+    localStorage.setItem("theme", newTheme);
+});
+
+// Formula Database
+const formulaDatabase = [
+    {
+        name: "Quadratic Formula",
+        formula: "x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}",
+        category: "algebra",
+        difficulty: "intermediate",
+        description: "Solution for ax + bx + c = 0",
+        tags: ["equations", "roots", "polynomial"],
+        icon: ""
+    },
+    {
+        name: "Binomial Theorem",
+        formula: "(a + b)^n = \\sum_{k=0}^{n} \\binom{n}{k} a^{n-k} b^k",
+        category: "algebra",
+        difficulty: "advanced",
+        description: "Expansion of binomial expressions",
+        tags: ["expansion", "combinatorics"],
+        icon: ""
+    },
+    {
+        name: "Difference of Squares",
+        formula: "a^2 - b^2 = (a + b)(a - b)",
+        category: "algebra",
+        difficulty: "beginner",
+        description: "Factorization formula",
+        tags: ["factorization", "identity"],
+        icon: ""
+    },
+    {
+        name: "Perfect Square",
+        formula: "(a \\pm b)^2 = a^2 \\pm 2ab + b^2",
+        category: "algebra",
+        difficulty: "beginner",
+        description: "Square of binomial",
+        tags: ["expansion", "identity"],
+        icon: ""
+    },
+    {
+        name: "Derivative Power Rule",
+        formula: "\\frac{d}{dx}(x^n) = nx^{n-1}",
+        category: "calculus",
+        difficulty: "beginner",
+        description: "Derivative of power functions",
+        tags: ["derivative", "differentiation"],
+        icon: ""
+    },
+    {
+        name: "Product Rule",
+        formula: "\\frac{d}{dx}[f(x)g(x)] = f'(x)g(x) + f(x)g'(x)",
+        category: "calculus",
+        difficulty: "intermediate",
+        description: "Derivative of product",
+        tags: ["derivative", "rules"],
+        icon: ""
+    },
+    {
+        name: "Chain Rule",
+        formula: "\\frac{d}{dx}[f(g(x))] = f'(g(x)) \\cdot g'(x)",
+        category: "calculus",
+        difficulty: "intermediate",
+        description: "Derivative of composition",
+        tags: ["derivative", "composition"],
+        icon: ""
+    },
+    {
+        name: "Integration by Parts",
+        formula: "\\int u\\,dv = uv - \\int v\\,du",
+        category: "calculus",
+        difficulty: "advanced",
+        description: "Integration technique",
+        tags: ["integration", "techniques"],
+        icon: ""
+    },
+    {
+        name: "Fundamental Theorem",
+        formula: "\\int_a^b f'(x)\\,dx = f(b) - f(a)",
+        category: "calculus",
+        difficulty: "intermediate",
+        description: "Connection between derivative and integral",
+        tags: ["integration", "fundamental"],
+        icon: ""
+    },
+    {
+        name: "Pythagorean Theorem",
+        formula: "a^2 + b^2 = c^2",
+        category: "geometry",
+        difficulty: "beginner",
+        description: "Right triangle relationship",
+        tags: ["triangle", "theorem"],
+        icon: ""
+    },
+    {
+        name: "Circle Area",
+        formula: "A = \\pi r^2",
+        category: "geometry",
+        difficulty: "beginner",
+        description: "Area of a circle",
+        tags: ["circle", "area"],
+        icon: ""
+    },
+    {
+        name: "Sphere Volume",
+        formula: "V = \\frac{4}{3}\\pi r^3",
+        category: "geometry",
+        difficulty: "intermediate",
+        description: "Volume of a sphere",
+        tags: ["sphere", "volume", "3D"],
+        icon: ""
+    },
+    {
+        name: "Triangle Area",
+        formula: "A = \\frac{1}{2}bh",
+        category: "geometry",
+        difficulty: "beginner",
+        description: "Area of triangle",
+        tags: ["triangle", "area"],
+        icon: ""
+    },
+    {
+        name: "Sine Law",
+        formula: "\\frac{a}{\\sin A} = \\frac{b}{\\sin B} = \\frac{c}{\\sin C}",
+        category: "trigonometry",
+        difficulty: "intermediate",
+        description: "Relationship in any triangle",
+        tags: ["triangle", "sine"],
+        icon: ""
+    },
+    {
+        name: "Cosine Law",
+        formula: "c^2 = a^2 + b^2 - 2ab\\cos C",
+        category: "trigonometry",
+        difficulty: "intermediate",
+        description: "Generalized Pythagorean theorem",
+        tags: ["triangle", "cosine"],
+        icon: ""
+    },
+    {
+        name: "Pythagorean Identity",
+        formula: "\\sin^2\\theta + \\cos^2\\theta = 1",
+        category: "trigonometry",
+        difficulty: "beginner",
+        description: "Fundamental trig identity",
+        tags: ["identity", "basic"],
+        icon: ""
+    },
+    {
+        name: "Double Angle (Sine)",
+        formula: "\\sin(2\\theta) = 2\\sin\\theta\\cos\\theta",
+        category: "trigonometry",
+        difficulty: "intermediate",
+        description: "Double angle formula for sine",
+        tags: ["identity", "double-angle"],
+        icon: "2"
+    },
+    {
+        name: "Newtons Second Law",
+        formula: "F = ma",
+        category: "physics",
+        difficulty: "beginner",
+        description: "Force equals mass times acceleration",
+        tags: ["mechanics", "force"],
+        icon: ""
+    },
+    {
+        name: "Kinetic Energy",
+        formula: "E_k = \\frac{1}{2}mv^2",
+        category: "physics",
+        difficulty: "beginner",
+        description: "Energy of motion",
+        tags: ["energy", "mechanics"],
+        icon: ""
+    },
+    {
+        name: "Einsteins Mass-Energy",
+        formula: "E = mc^2",
+        category: "physics",
+        difficulty: "advanced",
+        description: "Mass-energy equivalence",
+        tags: ["relativity", "energy"],
+        icon: ""
+    },
+    {
+        name: "Gravitational Force",
+        formula: "F = G\\frac{m_1m_2}{r^2}",
+        category: "physics",
+        difficulty: "intermediate",
+        description: "Universal gravitation",
+        tags: ["gravity", "force"],
+        icon: ""
+    },
+    {
+        name: "Wave Equation",
+        formula: "v = f\\lambda",
+        category: "physics",
+        difficulty: "beginner",
+        description: "Wave velocity relationship",
+        tags: ["waves", "motion"],
+        icon: ""
+    },
+    {
+        name: "Mean (Average)",
+        formula: "\\bar{x} = \\frac{1}{n}\\sum_{i=1}^{n} x_i",
+        category: "statistics",
+        difficulty: "beginner",
+        description: "Average of a dataset",
+        tags: ["average", "central tendency"],
+        icon: ""
+    },
+    {
+        name: "Standard Deviation",
+        formula: "\\sigma = \\sqrt{\\frac{1}{n}\\sum_{i=1}^{n}(x_i - \\bar{x})^2}",
+        category: "statistics",
+        difficulty: "intermediate",
+        description: "Measure of spread",
+        tags: ["variance", "spread"],
+        icon: ""
+    },
+    {
+        name: "Normal Distribution",
+        formula: "f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}}e^{-\\frac{(x-\\mu)^2}{2\\sigma^2}}",
+        category: "statistics",
+        difficulty: "advanced",
+        description: "Bell curve probability density",
+        tags: ["probability", "distribution"],
+        icon: ""
+    }
+];
+
+let currentCategory = "all";
+let currentDifficulty = "all";
+let currentSearchType = "all";
+
+function performSearch(query) {
+    query = query.toLowerCase().trim();
+    
+    if (!query) {
+        displayResults(formulaDatabase);
+        return;
+    }
+    
+    const results = formulaDatabase.filter(formula => {
+        if (currentCategory !== "all" && formula.category !== currentCategory) {
+            return false;
+        }
+        
+        if (currentDifficulty !== "all" && formula.difficulty !== currentDifficulty) {
+            return false;
+        }
+        
+        const searchIn = [
+            formula.name.toLowerCase(),
+            formula.description.toLowerCase(),
+            ...formula.tags,
+            formula.formula.toLowerCase()
+        ].join(" ");
+        
+        return searchIn.includes(query);
+    });
+    
+    displayResults(results);
+}
+
+function displayResults(results) {
+    const resultsContainer = document.getElementById("searchResults");
+    
+    if (results.length === 0) {
+        resultsContainer.innerHTML = `
+            <div style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+                <div style="font-size: 4rem; margin-bottom: 1rem;"></div>
+                <h3>No formulas found</h3>
+                <p>Try adjusting your search or filters</p>
+            </div>
+        `;
+        return;
+    }
+    
+    resultsContainer.innerHTML = results.map(formula => `
+        <div class="result-card">
+            <div class="result-title">${formula.icon} ${formula.name}</div>
+            <div class="result-formula">$$${formula.formula}$$</div>
+            <p class="result-description">${formula.description}</p>
+            <div class="result-tags">
+                ${formula.tags.map(tag => `<span class="tag">#${tag}</span>`).join("")}
+                <span class="tag"> ${formula.category}</span>
+                <span class="tag"> ${formula.difficulty}</span>
+            </div>
+        </div>
+    `).join("");
+    
+    if (window.MathJax) {
+        MathJax.typesetPromise();
+    }
+}
+
+const searchInputLarge = document.getElementById("searchInputLarge");
+const searchBtnLarge = document.getElementById("searchBtnLarge");
+const searchInputAdvanced = document.getElementById("searchInputAdvanced");
+const searchBtnAdvanced = document.getElementById("searchBtnAdvanced");
+
+searchBtnLarge.addEventListener("click", () => {
+    const query = searchInputLarge.value;
+    performSearch(query);
+    document.getElementById("search").scrollIntoView({ behavior: "smooth" });
+});
+
+searchInputLarge.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+        searchBtnLarge.click();
+    }
+});
+
+searchBtnAdvanced.addEventListener("click", () => {
+    const query = searchInputAdvanced.value;
+    performSearch(query);
+});
+
+searchInputAdvanced.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+        searchBtnAdvanced.click();
+    }
+});
+
+document.getElementById("searchType").addEventListener("change", (e) => {
+    currentSearchType = e.target.value;
+    performSearch(searchInputAdvanced.value);
+});
+
+document.getElementById("categoryFilter").addEventListener("change", (e) => {
+    currentCategory = e.target.value;
+    performSearch(searchInputAdvanced.value);
+});
+
+document.getElementById("difficultyFilter").addEventListener("change", (e) => {
+    currentDifficulty = e.target.value;
+    performSearch(searchInputAdvanced.value);
+});
+
+document.querySelectorAll(".example-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+        const example = btn.textContent;
+        searchInputLarge.value = example;
+        searchInputAdvanced.value = example;
+        performSearch(example);
+        document.getElementById("search").scrollIntoView({ behavior: "smooth" });
+    });
+});
+
+const categoryBtns = document.querySelectorAll(".category-btn");
+const formulasGrid = document.getElementById("formulasGrid");
+
+function displayFormulas(category) {
+    const formulas = category === "all" 
+        ? formulaDatabase 
+        : formulaDatabase.filter(f => f.category === category);
+    
+    formulasGrid.innerHTML = formulas.map(formula => `
+        <div class="formula-card">
+            <div class="formula-header">
+                <span class="formula-icon">${formula.icon}</span>
+                <h3 class="formula-name">${formula.name}</h3>
+            </div>
+            <div class="formula-content">$$${formula.formula}$$</div>
+            <span class="formula-category">${formula.category}</span>
+        </div>
+    `).join("");
+    
+    if (window.MathJax) {
+        MathJax.typesetPromise();
+    }
+}
+
+categoryBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+        categoryBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const category = btn.dataset.category;
+        displayFormulas(category);
+    });
+});
+
+const calcInput = document.getElementById("calcInput");
+const calcResult = document.getElementById("calcResult");
+const calcButtons = document.querySelectorAll(".calc-btn");
+
+let currentExpression = "";
+let lastResult = "";
+
+calcButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        const value = btn.textContent;
+        
+        if (value === "C") {
+            currentExpression = "";
+            calcInput.value = "";
+            calcResult.textContent = "0";
+        } else if (value === "") {
+            currentExpression = currentExpression.slice(0, -1);
+            calcInput.value = currentExpression;
+        } else if (value === "=") {
+            try {
+                let expr = currentExpression
+                    .replace(/π/g, "Math.PI")
+                    .replace(/e/g, "Math.E")
+                    .replace(/sin/g, "Math.sin")
+                    .replace(/cos/g, "Math.cos")
+                    .replace(/tan/g, "Math.tan")
+                    .replace(/log/g, "Math.log10")
+                    .replace(/ln/g, "Math.log")
+                    .replace(//g, "Math.sqrt")
+                    .replace(/\^/g, "**");
+                
+                const result = eval(expr);
+                calcResult.textContent = Number(result.toFixed(10));
+                lastResult = result.toString();
+            } catch (error) {
+                calcResult.textContent = "Error";
+            }
+        } else {
+            currentExpression += value;
+            calcInput.value = currentExpression;
+        }
+    });
+});
+
+calcInput.addEventListener("input", () => {
+    currentExpression = calcInput.value;
+});
+
+calcInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+        document.querySelector(".calc-btn.operator").click();
+    }
+});
+
+document.querySelectorAll(".nav-link").forEach(link => {
+    link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute("href");
+        const target = document.querySelector(targetId);
+        if (target) {
+            target.scrollIntoView({ behavior: "smooth" });
+            
+            document.querySelectorAll(".nav-link").forEach(l => l.classList.remove("active"));
+            link.classList.add("active");
+        }
+    });
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+    displayFormulas("all");
+    displayResults(formulaDatabase);
+    
+    window.MathJax = {
+        tex: {
+            inlineMath: [["$", "$"], ["\\(", "\\)"]],
+            displayMath: [["$$", "$$"], ["\\[", "\\]"]]
+        },
+        startup: {
+            ready: () => {
+                MathJax.startup.defaultReady();
+                MathJax.typesetPromise();
+            }
+        }
+    };
+});
+
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -100px 0px"
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+        }
+    });
+}, observerOptions);
+
+document.addEventListener("DOMContentLoaded", () => {
+    const cards = document.querySelectorAll(".formula-card, .result-card, .stat-card, .feature-item");
+    cards.forEach(card => {
+        card.style.opacity = "0";
+        card.style.transform = "translateY(20px)";
+        card.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+        observer.observe(card);
+    });
+});
