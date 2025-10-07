@@ -1,11 +1,31 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
+    <meta char                <div class="panel-        <div class="game-controls">
+            <button id="startBtn" class="btn btn-primary">
+                <span class="btn-icon">▶️</span>
+                <span class="btn-text">Start Game</span>
+            </button>
+            <button id="pauseBtn" class="btn btn-secondary hidden">
+                <span class="btn-icon">⏸️</span>
+                <span class="btn-text">Pause</span>
+            </button>
+        </div>
+        <footer class="game-footer">
+            <p>⚡ Created by <strong>Abdelouahab Mostafa</strong> | 2025 ⚡</p>
+            <p class="footer-subtitle">Neon Cyberpunk Edition</p>
+        </footer>-card">
+                    <h3>🎮 Controls</h3>
+                    <div class="control-item"><span>⬅️ ➡️</span><span>Move</span></div>="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tetris Game - Play Now!</title>
+    <title>🎮 Tetris Game - Neon Edition</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="background">
         <div class="cube"></div>
@@ -17,19 +37,20 @@
     <div class="game-container">
         <header class="game-header">
             <h1 class="game-title">
-                <span class="icon"></span>
+                <span class="icon">⚡</span>
                 TETRIS GAME
+                <span class="icon">⚡</span>
             </h1>
-            <p class="game-subtitle">Classic Block Puzzle</p>
+            <p class="game-subtitle">◆ Neon Block Puzzle Edition ◆</p>
         </header>
         <div class="game-wrapper">
             <div class="side-panel">
                 <div class="panel-card">
-                    <h3>Next Block</h3>
+                    <h3>⬛ Next Block</h3>
                     <canvas id="nextCanvas" width="120" height="120"></canvas>
                 </div>
                 <div class="panel-card stats-card">
-                    <h3>Statistics</h3>
+                    <h3>📊 Statistics</h3>
                     <div class="stat-item">
                         <span class="stat-label">Score</span>
                         <span class="stat-value" id="score">0</span>
@@ -59,9 +80,9 @@
                 <canvas id="gameCanvas" width="300" height="600"></canvas>
                 <div id="gameOver" class="game-over hidden">
                     <div class="game-over-content">
-                        <h2>Game Over!</h2>
-                        <p class="final-score">Score: <span id="finalScore">0</span></p>
-                        <button id="restartBtn" class="btn-restart">Play Again</button>
+                        <h2>💀 GAME OVER 💀</h2>
+                        <p class="final-score">Final Score: <span id="finalScore">0</span></p>
+                        <button id="restartBtn" class="btn-restart">🔄 Play Again</button>
                     </div>
                 </div>
             </div>
@@ -95,4 +116,5 @@
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>
