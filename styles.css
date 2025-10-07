@@ -5,53 +5,54 @@
 }
 
 :root {
-    --primary-color: #00f5ff;
-    --secondary-color: #ff006e;
-    --accent-color: #8338ec;
-    --success-color: #06ffa5;
-    --danger-color: #ff006e;
-    --warning-color: #ffbe0b;
-    --bg-dark: #0a0e27;
-    --bg-medium: #1a1f3a;
-    --bg-light: #2a2f4a;
-    --text-primary: #ffffff;
-    --text-secondary: #a0a0c0;
-    --neon-cyan: #00f5ff;
-    --neon-pink: #ff006e;
-    --neon-purple: #8338ec;
-    --neon-green: #06ffa5;
-    --neon-yellow: #ffbe0b
+    --primary: #6366f1;
+    --secondary: #ec4899;
+    --accent: #a855f7;
+    --success: #10b981;
+    --glass: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --text: #fff;
+    --text-secondary: #cbd5e1
 }
 
 body {
-    font-family: 'Orbitron', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: var(--bg-dark);
-    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow-x: hidden;
-    position: relative
+    position: relative;
+    padding: 20px
 }
 
 body::before {
     content: '';
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 2px,
-            rgba(0, 245, 255, 0.03) 2px,
-            rgba(0, 245, 255, 0.03) 4px
-        );
-    pointer-events: none;
-    z-index: 999
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 20% 50%, rgba(236, 72, 153, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(99, 102, 241, 0.3) 0%, transparent 50%), radial-gradient(circle at 40% 20%, rgba(168, 85, 247, 0.3) 0%, transparent 50%);
+    animation: bgMove 20s ease infinite;
+    pointer-events: none
+}
+
+@keyframes bgMove {
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg)
+    }
+
+    33% {
+        transform: translate(-5%, 5%) rotate(120deg)
+    }
+
+    66% {
+        transform: translate(5%, -5%) rotate(240deg)
+    }
 }
 
 .background {
@@ -61,99 +62,51 @@ body::before {
     width: 100%;
     height: 100%;
     z-index: 0;
-    background: radial-gradient(ellipse at top, #1a1f3a 0%, #0a0e27 50%, #000000 100%);
     overflow: hidden
-}
-
-.background::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 800px;
-    height: 800px;
-    background: radial-gradient(circle, rgba(131, 56, 236, 0.15) 0%, transparent 70%);
-    animation: pulse 4s ease-in-out infinite
-}
-
-@keyframes pulse {
-    0%, 100% { 
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 0.3;
-    }
-    50% { 
-        transform: translate(-50%, -50%) scale(1.2);
-        opacity: 0.6;
-    }
 }
 
 .cube {
     position: absolute;
-    width: 80px;
-    height: 80px;
-    background: transparent;
-    border: 2px solid;
-    border-radius: 12px;
-    animation: float 15s infinite ease-in-out, glow 3s ease-in-out infinite;
-    box-shadow: 0 0 20px currentColor
-}
-
-.cube:nth-child(1) { 
-    border-color: var(--neon-cyan);
-    box-shadow: 0 0 20px var(--neon-cyan), inset 0 0 20px var(--neon-cyan)
-}
-
-.cube:nth-child(2) { 
-    border-color: var(--neon-pink);
-    box-shadow: 0 0 20px var(--neon-pink), inset 0 0 20px var(--neon-pink)
-}
-
-.cube:nth-child(3) { 
-    border-color: var(--neon-purple);
-    box-shadow: 0 0 20px var(--neon-purple), inset 0 0 20px var(--neon-purple)
-}
-
-.cube:nth-child(4) { 
-    border-color: var(--neon-green);
-    box-shadow: 0 0 20px var(--neon-green), inset 0 0 20px var(--neon-green)
-}
-
-.cube:nth-child(5) { 
-    border-color: var(--neon-yellow);
-    box-shadow: 0 0 20px var(--neon-yellow), inset 0 0 20px var(--neon-yellow)
-}
-
-@keyframes glow {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 0.8; }
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: float 20s infinite ease-in-out;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1)
 }
 
 .cube:nth-child(1) {
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(236, 72, 153, 0.05));
     top: 10%;
     left: 10%;
     animation-delay: 0s
 }
 
 .cube:nth-child(2) {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(99, 102, 241, 0.05));
     top: 60%;
     left: 80%;
     animation-delay: 2s
 }
 
 .cube:nth-child(3) {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(168, 85, 247, 0.05));
     top: 80%;
     left: 20%;
     animation-delay: 4s
 }
 
 .cube:nth-child(4) {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.05));
     top: 30%;
     left: 70%;
     animation-delay: 6s
 }
 
 .cube:nth-child(5) {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.05));
     top: 50%;
     left: 50%;
     animation-delay: 8s
@@ -183,7 +136,7 @@ body::before {
     position: relative;
     z-index: 1;
     max-width: 1400px;
-    width: 95%;
+    width: 100%;
     padding: 20px
 }
 
@@ -194,52 +147,25 @@ body::before {
 }
 
 .game-title {
-    font-size: 3.5rem;
-    font-weight: 900;
-    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink), var(--neon-purple));
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff, #e9d5ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    text-transform: uppercase;
-    letter-spacing: 5px;
-    text-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
-    animation: titleGlow 2s ease-in-out infinite
-}
-
-@keyframes titleGlow {
-    0%, 100% {
-        filter: drop-shadow(0 0 10px var(--neon-cyan));
-    }
-    33% {
-        filter: drop-shadow(0 0 20px var(--neon-pink));
-    }
-    66% {
-        filter: drop-shadow(0 0 20px var(--neon-purple));
-    }
+    margin-bottom: 15px;
+    letter-spacing: 2px
 }
 
 .game-title .icon {
-    font-size: 4rem;
-    animation: bounce 2s infinite, rotate 10s linear infinite;
-    filter: drop-shadow(0 0 15px var(--neon-cyan))
-}
-
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    font-size: 2.5rem;
+    margin: 0 10px
 }
 
 .game-subtitle {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     color: var(--text-secondary);
     font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: 3px;
     opacity: 0.9
 }
 
@@ -258,60 +184,35 @@ body::before {
 }
 
 .panel-card {
-    background: rgba(26, 31, 58, 0.8);
-    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
     padding: 25px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(0, 245, 255, 0.2);
-    border: 2px solid transparent;
-    background-clip: padding-box;
-    position: relative;
-    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease
-}
-
-.panel-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 20px;
-    padding: 2px;
-    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple), var(--neon-pink));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0.5
 }
 
 .panel-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 48px rgba(0, 245, 255, 0.3), 0 0 0 2px var(--neon-cyan)
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.15)
 }
 
 .panel-card h3 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     margin-bottom: 20px;
-    color: var(--text-primary);
+    color: var(--text);
     text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-weight: 900;
-    filter: drop-shadow(0 0 10px var(--neon-cyan))
+    font-weight: 700
 }
 
 #nextCanvas {
     display: block;
     margin: 0 auto;
-    background: rgba(10, 14, 39, 0.9);
-    border-radius: 12px;
-    border: 2px solid rgba(0, 245, 255, 0.3);
-    box-shadow: 0 0 20px rgba(0, 245, 255, 0.2), inset 0 0 20px rgba(0, 245, 255, 0.1)
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1)
 }
 
 .stat-item {
@@ -319,13 +220,13 @@ body::before {
     justify-content: space-between;
     align-items: center;
     padding: 15px 0;
-    border-bottom: 1px solid rgba(0, 245, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease
 }
 
 .stat-item:hover {
     padding-left: 10px;
-    border-left: 3px solid var(--neon-cyan)
+    border-left: 3px solid var(--primary)
 }
 
 .stat-item:last-child {
@@ -334,39 +235,30 @@ body::before {
 
 .stat-label {
     color: var(--text-secondary);
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 600
+    font-size: 0.95rem;
+    font-weight: 500
 }
 
 .stat-value {
-    color: var(--text-primary);
+    color: var(--text);
     font-size: 1.8rem;
     font-weight: 900;
-    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+    background: linear-gradient(135deg, #fff, #c7d2fe);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 0 10px var(--neon-cyan));
-    animation: valueGlow 2s ease-in-out infinite
-}
-
-@keyframes valueGlow {
-    0%, 100% { filter: drop-shadow(0 0 8px var(--neon-cyan)); }
-    50% { filter: drop-shadow(0 0 15px var(--neon-purple)); }
+    background-clip: text
 }
 
 .control-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
-    font-size: 0.9rem
+    padding: 12px 0;
+    font-size: 0.95rem
 }
 
 .control-item span:first-child {
-    font-size: 1.2rem
+    font-size: 1.5rem
 }
 
 .control-item span:last-child {
@@ -381,31 +273,12 @@ body::before {
 }
 
 #gameCanvas {
-    background: rgba(10, 14, 39, 0.95);
-    border-radius: 20px;
-    box-shadow: 
-        0 0 60px rgba(0, 245, 255, 0.4),
-        0 0 100px rgba(131, 56, 236, 0.3),
-        inset 0 0 40px rgba(0, 245, 255, 0.1);
-    border: 3px solid;
-    border-image: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink), var(--neon-purple)) 1;
-    display: block;
-    animation: canvasGlow 3s ease-in-out infinite
-}
-
-@keyframes canvasGlow {
-    0%, 100% {
-        box-shadow: 
-            0 0 40px rgba(0, 245, 255, 0.4),
-            0 0 80px rgba(131, 56, 236, 0.3),
-            inset 0 0 40px rgba(0, 245, 255, 0.1);
-    }
-    50% {
-        box-shadow: 
-            0 0 60px rgba(255, 0, 110, 0.5),
-            0 0 100px rgba(131, 56, 236, 0.4),
-            inset 0 0 60px rgba(255, 0, 110, 0.15);
-    }
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    display: block
 }
 
 .game-over {
@@ -414,15 +287,14 @@ body::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(10, 14, 39, 0.98);
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(20px);
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 20px;
-    backdrop-filter: blur(20px);
+    border-radius: 24px;
     animation: fadeIn 0.3s ease;
-    border: 2px solid var(--neon-pink);
-    box-shadow: 0 0 50px rgba(255, 0, 110, 0.6), inset 0 0 50px rgba(255, 0, 110, 0.2)
+    border: 2px solid rgba(255, 255, 255, 0.2)
 }
 
 .game-over.hidden {
@@ -435,21 +307,13 @@ body::before {
 }
 
 .game-over-content h2 {
-    font-size: 3.5rem;
+    font-size: 3rem;
     margin-bottom: 20px;
-    background: linear-gradient(135deg, var(--neon-pink), var(--neon-yellow));
+    background: linear-gradient(135deg, #ec4899, #f59e0b);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-transform: uppercase;
-    letter-spacing: 5px;
-    animation: gameOverPulse 1s ease-in-out infinite;
-    filter: drop-shadow(0 0 20px var(--neon-pink))
-}
-
-@keyframes gameOverPulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+    font-weight: 900
 }
 
 .final-score {
@@ -459,7 +323,7 @@ body::before {
 }
 
 .final-score span {
-    color: var(--text-primary);
+    color: var(--text);
     font-weight: 700;
     font-size: 2rem
 }
@@ -480,59 +344,27 @@ body::before {
 .control-btn {
     width: 70px;
     height: 70px;
-    background: rgba(26, 31, 58, 0.8);
-    border: 2px solid var(--neon-cyan);
-    border-radius: 15px;
-    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    color: var(--text);
     font-size: 1.5rem;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 15px rgba(0, 245, 255, 0.3), inset 0 0 15px rgba(0, 245, 255, 0.1);
-    position: relative;
-    overflow: hidden
-}
-
-.control-btn::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: radial-gradient(circle, rgba(0, 245, 255, 0.4) 0%, transparent 70%);
-    transform: translate(-50%, -50%);
-    transition: width 0.3s, height 0.3s
-}
-
-.control-btn:active::before {
-    width: 200px;
-    height: 200px
+    transition: all 0.3s ease
 }
 
 .control-btn:active {
-    transform: scale(0.92);
-    box-shadow: 0 0 25px var(--neon-cyan), inset 0 0 25px rgba(0, 245, 255, 0.3)
+    transform: scale(0.95);
+    background: rgba(255, 255, 255, 0.2)
 }
 
 .drop-btn {
     width: 160px;
-    background: linear-gradient(135deg, var(--neon-green), var(--neon-cyan));
-    font-weight: 900;
+    background: linear-gradient(135deg, var(--success), #22c55e);
+    font-weight: 700;
     font-size: 1.2rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    box-shadow: 0 0 30px rgba(6, 255, 165, 0.6), inset 0 0 20px rgba(6, 255, 165, 0.2);
-    border: 2px solid var(--neon-green);
-    animation: dropBtnPulse 1.5s ease-in-out infinite
-}
-
-@keyframes dropBtnPulse {
-    0%, 100% { 
-        box-shadow: 0 0 20px rgba(6, 255, 165, 0.4), inset 0 0 15px rgba(6, 255, 165, 0.2);
-    }
-    50% { 
-        box-shadow: 0 0 40px rgba(6, 255, 165, 0.7), inset 0 0 25px rgba(6, 255, 165, 0.3);
-    }
+    border: none
 }
 
 .game-controls {
@@ -546,7 +378,7 @@ body::before {
     padding: 18px 45px;
     border: none;
     border-radius: 50px;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -554,96 +386,49 @@ body::before {
     align-items: center;
     gap: 12px;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    position: relative;
-    overflow: hidden;
-    z-index: 1
-}
-
-.btn::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: width 0.5s, height 0.5s;
-    z-index: -1
-}
-
-.btn:hover::before {
-    width: 300px;
-    height: 300px
+    letter-spacing: 1px;
+    backdrop-filter: blur(10px)
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+    background: linear-gradient(135deg, var(--primary), var(--accent));
     color: white;
-    border: 2px solid var(--neon-cyan);
-    box-shadow: 0 0 30px rgba(0, 245, 255, 0.5), inset 0 0 20px rgba(0, 245, 255, 0.2);
-    animation: btnGlow 2s ease-in-out infinite
-}
-
-@keyframes btnGlow {
-    0%, 100% {
-        box-shadow: 0 0 20px rgba(0, 245, 255, 0.4), inset 0 0 15px rgba(0, 245, 255, 0.2);
-    }
-    50% {
-        box-shadow: 0 0 40px rgba(131, 56, 236, 0.6), inset 0 0 25px rgba(131, 56, 236, 0.3);
-    }
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4)
 }
 
 .btn-primary:hover {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 0 50px rgba(0, 245, 255, 0.8), inset 0 0 30px rgba(0, 245, 255, 0.3)
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(99, 102, 241, 0.6)
 }
 
 .btn-secondary {
-    background: rgba(26, 31, 58, 0.8);
-    color: var(--text-primary);
-    border: 2px solid var(--neon-purple);
-    box-shadow: 0 0 20px rgba(131, 56, 236, 0.4), inset 0 0 15px rgba(131, 56, 236, 0.1)
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text);
+    border: 1px solid rgba(255, 255, 255, 0.2)
 }
 
 .btn-secondary:hover {
-    background: rgba(131, 56, 236, 0.2);
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 0 40px rgba(131, 56, 236, 0.7), inset 0 0 25px rgba(131, 56, 236, 0.2)
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px)
 }
 
 .btn-restart {
     padding: 16px 40px;
-    background: linear-gradient(135deg, var(--neon-pink), var(--neon-yellow));
+    background: linear-gradient(135deg, var(--secondary), var(--accent));
     color: white;
     border: none;
     border-radius: 50px;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 800;
     cursor: pointer;
     transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    box-shadow: 0 0 30px rgba(255, 0, 110, 0.6), inset 0 0 20px rgba(255, 0, 110, 0.2);
-    animation: restartPulse 1s ease-in-out infinite
-}
-
-@keyframes restartPulse {
-    0%, 100% {
-        transform: scale(1);
-        box-shadow: 0 0 25px rgba(255, 0, 110, 0.5), inset 0 0 15px rgba(255, 0, 110, 0.2);
-    }
-    50% {
-        transform: scale(1.05);
-        box-shadow: 0 0 45px rgba(255, 190, 11, 0.7), inset 0 0 25px rgba(255, 190, 11, 0.3);
-    }
+    box-shadow: 0 8px 24px rgba(236, 72, 153, 0.4)
 }
 
 .btn-restart:hover {
-    transform: translateY(-5px) scale(1.1);
-    box-shadow: 0 0 60px rgba(255, 0, 110, 0.9), inset 0 0 30px rgba(255, 0, 110, 0.4)
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(236, 72, 153, 0.6)
 }
 
 .btn.hidden {
@@ -658,33 +443,20 @@ body::before {
     text-align: center;
     margin-top: 40px;
     padding-top: 25px;
-    border-top: 2px solid;
-    border-image: linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-purple), var(--neon-pink), transparent) 1;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
     color: var(--text-secondary);
     font-size: 1rem;
     animation: fadeIn 0.6s ease 0.6s backwards
 }
 
-.game-footer p {
-    margin: 8px 0
-}
-
 .game-footer strong {
-    color: var(--text-primary);
-    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 2px
+    color: var(--text);
+    font-weight: 700
 }
 
 .footer-subtitle {
     font-size: 0.85rem;
     opacity: 0.7;
-    text-transform: uppercase;
-    letter-spacing: 2px;
     margin-top: 5px
 }
 
@@ -755,10 +527,6 @@ body::before {
         font-size: 2.2rem
     }
 
-    .game-title .icon {
-        font-size: 2.5rem
-    }
-
     .game-subtitle {
         font-size: 1rem
     }
@@ -797,9 +565,7 @@ body::before {
     }
 
     .game-title {
-        font-size: 1.8rem;
-        flex-direction: column;
-        gap: 5px
+        font-size: 1.8rem
     }
 
     .panel-card {
@@ -819,7 +585,7 @@ body::before {
     }
 
     .stat-value {
-        font-size: 1.1rem
+        font-size: 1.4rem
     }
 
     .control-btn {
