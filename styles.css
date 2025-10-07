@@ -232,4 +232,216 @@ p, button, input{
     margin-top: -10px;
 }
 
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+    body, html {
+        padding: 10px;
+        overflow-x: hidden;
+    }
+
+    .input-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+
+    #input-box {
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+
+    #sub-btn {
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+
+    .info-container {
+        min-width: auto;
+        width: 95%;
+        max-width: 100%;
+        padding: 15px;
+        margin-top: 1em;
+        box-sizing: border-box;
+    }
+
+    #city-name {
+        font-size: 1.5em;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .main-info {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .temp-info {
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+
+    #temp {
+        font-size: 3em;
+    }
+
+    .bar {
+        display: none;
+    }
+
+    .sky-info {
+        margin-top: 10px;
+    }
+
+    .sky-info #icon {
+        width: 80px;
+        height: 80px;
+    }
+
+    .secondary-info {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .test {
+        width: 100%;
+    }
+
+    .air-info,
+    .wind-info {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .humidity,
+    .pressure,
+    .wind-direction,
+    .wind-speed {
+        width: 90%;
+        max-width: 300px;
+        margin: 10px auto;
+        padding: 15px;
+        font-size: 14px;
+    }
+
+    .secondary-info img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .sun-info {
+        flex-direction: column;
+        width: 90%;
+        max-width: 300px;
+        margin: 20px auto;
+        padding: 15px;
+    }
+
+    .sunrise,
+    .sunset {
+        margin: 10px auto;
+        text-align: center;
+        width: 100%;
+    }
+
+    #sunrise-icon,
+    #sunset-icon {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto;
+    }
+
+    .forecast {
+        flex-direction: column;
+        width: 90%;
+        max-width: 300px;
+        margin: 20px auto;
+        padding: 10px;
+    }
+
+    .days {
+        padding: 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+    }
+
+    .days:last-child {
+        border-bottom: none;
+    }
+
+    .days h2 {
+        flex: 1;
+        font-size: 16px;
+        margin: 0;
+    }
+
+    .days img {
+        width: 50px;
+        height: 50px;
+        margin: 0 10px;
+    }
+
+    .days p {
+        margin: 0;
+        font-size: 18px;
+        font-weight: bold;
+        min-width: 50px;
+        text-align: right;
+    }
+
+    .date {
+        margin-bottom: 0;
+    }
+}
+
+/* Extra small mobile devices */
+@media screen and (max-width: 480px) {
+    #temp {
+        font-size: 2.5em;
+    }
+
+    .humidity,
+    .pressure,
+    .wind-direction,
+    .wind-speed {
+        font-size: 12px;
+        padding: 12px;
+    }
+
+    .secondary-info img {
+        width: 50px;
+        height: 50px;
+    }
+
+    #sunrise-icon,
+    #sunset-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .days img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .days h2 {
+        font-size: 14px;
+    }
+
+    .days p {
+        font-size: 16px;
+    }
+}
+
 
