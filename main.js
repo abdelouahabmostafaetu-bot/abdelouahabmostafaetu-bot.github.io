@@ -13,18 +13,20 @@ async function currentWeatherData(city){
     }
 }
 
+
 async function forecastWeatherData(city){
     const forecastWeatherUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
     try{
         const response = await fetch(forecastWeatherUrl);
         if(!response.ok){
-            throw new Error('Something went wrong');
+            throw new Error('Somthing went wrong');
         }
         return await response.json();
     }catch(error){
         console.error('Error fetching forecast weather data', error);
     }
 }
+
 
 function getWindDirection(degree){
     const directions = ["North", "Northeast", "East", "Southeast", "South", "Southwest", "West", "Northwest"];
@@ -33,6 +35,7 @@ function getWindDirection(degree){
         index = 0;
     return directions[index];
 }
+
 
 function setCurrentInfo(currentData){
     const cityName = document.getElementById('city-name');
@@ -46,12 +49,13 @@ function setCurrentInfo(currentData){
     cityName.innerHTML = currentData.name;
     temp.innerHTML = Math.round(currentData.main.temp) + '°';
     description.innerHTML = currentData.weather[0].description; 
-    humidity.innerHTML = 'Humidity: ' + currentData.main.humidity + ' %';
-    feelsLike.innerHTML = 'Feels like: ' + Math.round(currentData.main.feels_like) + '°';
-    pressure.innerHTML = 'Pressure: ' + (currentData.main.pressure) + ' mbar';
-    windSpeed.innerHTML = 'Wind speed: ' + ((currentData.wind.speed) * 3.6).toFixed(2) + ' Km/h';
-    windDegree.innerHTML = 'Wind direction: ' + getWindDirection(currentData.wind.deg) + ' (' + currentData.wind.deg + '°' + ')';
+    humidity.innerHTML = 'Humidity:  ' + currentData.main.humidity + ' %';
+    feelsLike.innerHTML = 'Feels like:  ' + Math.round(currentData.main.feels_like) + '°';
+    pressure.innerHTML = 'Pressure:  ' + (currentData.main.pressure) + ' mbar';
+    windSpeed.innerHTML = 'Wind speed:  ' + ((currentData.wind.speed) * 3.6).toFixed(2) + ' Km/h';
+    windDegree.innerHTML = 'Wind direction:  ' + getWindDirection(currentData.wind.deg) + ' (' + currentData.wind.deg + '°' + ')';
 }
+
 
 function setWeatherIcon(currentData){
     const icon = currentData.weather[0].icon;
@@ -61,12 +65,15 @@ function setWeatherIcon(currentData){
     img.style.display = 'block';
 }
 
+
+
 function formatTwoDigits(time){
     if(time <= 9){
         return '0' + time; 
     }
     return time;
 }
+
 
 function setTimeZone(currentData){
     const sunrise = document.getElementById('sunrise-time');
@@ -85,6 +92,7 @@ function setTimeZone(currentData){
     sunrise.innerHTML = 'Sunrise: ' + `${formatTwoDigits(sunriseHour)}:${formatTwoDigits(sunriseMinutes)}`;
     sunset.innerHTML = 'Sunset: ' + `${formatTwoDigits(sunsetHour)}:${formatTwoDigits(sunsetMinutes)}`;
 }
+
 
 function formatForecastData(forecastData){
     let days = [[], [], [], [], [], []];
@@ -105,6 +113,8 @@ function formatForecastData(forecastData){
     return days;
 }
 
+
+
 function formatDay(date){
     let day;
     switch(date){
@@ -117,7 +127,9 @@ function formatDay(date){
         case 6: day = 'Saturday'; break;
     }
     return day;
-}
+}   
+
+
 
 function setForecastInfo(daysData){
     let days = [];
@@ -145,6 +157,8 @@ function setForecastInfo(daysData){
     }
 }
 
+
+
 document.addEventListener('DOMContentLoaded', () =>{
     const btn = document.getElementById('sub-btn');
     btn.addEventListener('click', async () =>{
@@ -170,3 +184,5 @@ document.addEventListener('DOMContentLoaded', () =>{
         }
     });
 });
+    
+    

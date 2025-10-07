@@ -1,571 +1,102 @@
-﻿<!DOCTYPE html><!DOCTYPE html>
-
-<html lang="en"><!DOCTYPE html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-
-    <meta charset="UTF-8"><html lang="en">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><html lang="en">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-
-    <link rel="icon" type="image/x-icon" href="icon.png"><head>
-
+    <link rel="icon" type="image/x-icon" href="icon.png">
     <script src="main.js"></script>
-
-    <title>Weather</title>    <meta charset="UTF-8">
-
+    <title> Weather </title>
 </head>
-
-<body>    <head>
-
+<body>
     <div class="input-container">
-
-        <input id="input-box" type="text" placeholder="Name of the city">        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <button id="sub-btn" type="submit">Get weather</button>        <meta charset="UTF-8">
-
+        <input id="input-box" type="text" placeholder="Name of the city">
+        <button id="sub-btn" type="submit"> Get weather </button>
     </div>
-
-    <div class="info-container">        <title>MathSearch Pro - Advanced Mathematical Search Engine</title>
-
-        <h1 id="city-name"></h1>        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <div class="info-container">
+        <h1 id="city-name"> </h1>
         <div class="main-info">
-
-            <div class="temp-info">        <link rel="stylesheet" href="styles.css">
-
-                <div class="main-temp">        <title> Tetris Game - Glass Edition</title>
-
-                    <p class="item" id="temp"></p>
-
-                </div>        <link rel="preconnect" href="https://fonts.googleapis.com">
-
-                <div class="real-feel">        <link rel="stylesheet" href="styles.css">
-
-                    <p class="item" id="feels-like"></p>
-
-                </div>        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-            </div>        <link rel="preconnect" href="https://fonts.googleapis.com">
-
-            <span class="bar">|</span>
-
-            <div class="sky-info">        <link
-
-                <img class="item" id="icon" src="">            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
-
-                <p class="item" id="description"></p>            rel="stylesheet">
-
-            </div>        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-        </div>
-
-        <div class="secondary-info">        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-
-            <div class="test">                <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" <script
-
-                <div class="air-info">            id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-
-                    <div class="humidity">        </script> rel="stylesheet">
-
-                        <p class="item" id="humidity"></p>
-
-                        <img src="images/humidity.png">    </head>
-
-                    </div></head>
-
-                    <div class="pressure">
-
-                        <p class="item" id="pressure"></p><body>
-
-                        <img src="images/pressure.png">
-
-                    </div>    <!-- Navigation -->
-
+            <div class="temp-info">
+                <div class="main-temp">
+                    <p class="item" id="temp"> </p>
                 </div>
-
-    <body>
+                <div class="real-feel">
+                    <p class="item" id="feels-like"></p>
+                </div>
+            </div>
+            <span class="bar"> | </span>
+            <div class="sky-info">
+                <img class="item" id="icon" src="">
+                <p class="item" id="description"> </p>
+            </div>
+        </div>
+        <div class="secondary-info">
+            <div class="test">        
+                <div class="air-info">
+                    <div class="humidity">
+                        <p class="item" id="humidity"> </p>
+                        <img src="images/humidity.png">
+                    </div>
+                    <div class="pressure">
+                        <p class="item" id="pressure"></p>
+                        <img src="images/pressure.png">
+                    </div>
+                </div>
 
                 <div class="wind-info">
-
-                    <div class="wind-speed">        <nav class="navbar">
-
-                        <p class="item" id="wind-speed"></p>            <div class="background">
-
+                    <div class="wind-speed">
+                        <p class="item" id="wind-speed"></p>
                         <img src="images/wind.png">
-
-                    </div>                <div class="container nav-content">
-
-                    <div class="wind-direction">                    <div class="cube"></div>
-
+                    </div>
+                    <div class="wind-direction">
                         <p class="item" id="wind-degree"></p>
-
-                        <img src="images/wind-direction.png">                    <div class="logo">
-
-                    </div>                        <div class="cube"></div>
-
+                        <img src="images/wind-direction.png">
+                    </div>
                 </div>
-
-            </div>                        <span class="logo-icon">∫</span>
-
-                        <div class="cube"></div>
-
+            </div>
+            
             <div class="sun-info">
-
-                <div class="sunrise">                        <span class="logo-text">MathSearch Pro</span>
-
-                    <p class="item" id="sunrise-time"></p>                        <div class="cube"></div>
-
+                <div class="sunrise">
+                    <p class="item" id="sunrise-time"> </p>
                     <img src="images/sunrise.png" id="sunrise-icon">
-
-                </div>                    </div>
-
-                <div class="sunset">                    <div class="cube"></div>
-
-                    <p class="item" id="sunset-time"></p>
-
-                    <img src="images/sunset.png" id="sunset-icon">                    <div class="nav-links"> </div>
-
                 </div>
-
-            </div>                    <a href="#home" class="nav-link active">Home</a>
-
-        </div>                    <div class="game-container">
-
-
-
-        <div class="forecast">                        <a href="#search" class="nav-link">Search</a>
-
-            <div class="days" id="day1">                        <header class="game-header">
-
-                <h2 class="date"></h2>
-
-                <img src="">                            <a href="#formulas" class="nav-link">Formulas</a>
-
-                <p></p>                            <h1 class="game-title">
-
+                <div class="sunset">
+                    <p class="item" id="sunset-time"> </p>
+                    <img src="images/sunset.png" id="sunset-icon">
+                </div>
             </div>
+        </div>
 
-            <div class="days" id="day2">                                <a href="#calculator" class="nav-link">Calculator</a> <span class="icon"></span>
 
+        
+        <div class="forecast">
+            <div class="days" id="day1"> 
                 <h2 class="date"></h2>
-
-                <img src="">                                <a href="#about" class="nav-link">About</a> TETRIS GAME
-
-                <p></p>
-
-            </div>                    </div>
-
-            <div class="days" id="day3">                    </h1>
-
-                <h2 class="date"></h2>
-
-                <img src="">                    <button class="theme-toggle" id="themeToggle">
-
-                <p></p>                        <p class="game-subtitle">Modern Glass-morphism Edition</p>
-
-            </div>
-
-            <div class="days" id="day4">                        <span class="icon sun">☀️</span> </header>
-
-                <h2 class="date"></h2>
-
-                <img src="">                        <span class="icon moon">🌙</span>
-
-                <p></p>                        <div class="game-wrapper">
-
-            </div>
-
-            <div class="days" id="day5">                    </button>
-
-                <h2 class="date"></h2>                    <div class="side-panel">
-
                 <img src="">
-
-                <p></p>                    </div>
-
-            </div>                    <div class="panel-card">
-
-        </div>
-
-    </div>        </nav>
-
-</body>        <h3> Next Block</h3>
-
-</html>
-
-        <canvas id="nextCanvas" width="120" height="120"></canvas>
-
-        <!-- Hero Section --> </div>
-
-        <section id="home" class="hero">
-            <div class="panel-card stats-card">
-
-                <div class="hero-bg">
-                    <h3> Statistics</h3>
-
-                    <div class="math-symbol">∑</div>
-                    <div class="stat-item">
-
-                        <div class="math-symbol">∫</div> <span class="stat-label">Score</span>
-
-                        <div class="math-symbol">∂</div> <span class="stat-value" id="score">0</span>
-
-                        <div class="math-symbol">π</div>
-                    </div>
-
-                    <div class="math-symbol">√</div>
-                    <div class="stat-item">
-
-                        <div class="math-symbol">∞</div> <span class="stat-label">Lines</span>
-
-                    </div> <span class="stat-value" id="lines">0</span>
-
-                    <div class="container hero-content"> </div>
-
-                    <h1 class="hero-title">
-                        <div class="stat-item">
-
-                            Advanced Mathematical <span class="gradient-text">Search Engine</span> <span
-                                class="stat-label">Level</span>
-
-                    </h1> <span class="stat-value" id="level">1</span>
-
-                    <p class="hero-description">
-                </div>
-
-                Search mathematical formulas, equations, and expressions with LaTeX support. <div class="stat-item">
-
-                    Discover mathematics like never before. <span class="stat-label">High Score</span>
-
-                    </p> <span class="stat-value" id="highScore">0</span>
-
-                    <div class="hero-search"> </div>
-
-                    <div class="search-box-large"> </div>
-
-                    <input type="text" class="search-input-large" id="heroSearch"
-                        placeholder="Search formulas: e.g., \int x^2 dx or Pythagorean theorem">
-                    <div class="panel-card controls-card">
-
-                        <button class="search-btn-large" id="heroSearchBtn">
-                            <h3> Controls</h3>
-
-                            <span>🔍 Search</span>
-                            <div class="control-item"><span> </span><span>Move</span></div>
-
-                        </button>
-                        <div class="control-item"><span></span><span>Rotate</span></div>
-
-                    </div>
-                    <div class="control-item"><span></span><span>Drop Faster</span></div>
-
-                    <div class="search-suggestions-hero" id="heroSuggestions"></div>
-                    <div class="control-item"><span>SPACE</span><span>Hard Drop</span></div>
-
-                </div>
+                <p></p>
             </div>
-
-            <div class="quick-examples"> </div>
-
-            <span class="example-label">Try examples:</span>
-            <div class="game-board-container">
-
-                <button class="example-btn" data-query="\int x^2 dx">Integration</button> <canvas id="gameCanvas"
-                    width="300" height="600"></canvas>
-
-                <button class="example-btn" data-query="a^2 + b^2 = c^2">Pythagorean</button>
-                <div id="gameOver" class="game-over hidden">
-
-                    <button class="example-btn" data-query="\frac{d}{dx}">Derivative</button>
-                    <div class="game-over-content">
-
-                        <button class="example-btn" data-query="E = mc^2">Einstein</button>
-                        <h2>Game Over</h2>
-
-                    </div>
-                    <p class="final-score">Final Score: <span id="finalScore">0</span></p>
-
-                </div> <button id="restartBtn" class="btn-restart">Play Again</button>
-
-        </section>
-        </div>
-
-        </div>
-
-        <!-- Advanced Search Section --> </div>
-
-        <section id="search" class="search-section">
-            <div class="mobile-controls">
-
-                <div class="container">
-                    <div class="control-row">
-
-                        <div class="section-header"> <button class="control-btn" id="rotateBtn"><span></span></button>
-
-                            <h2 class="section-title">Advanced Search</h2>
-                        </div>
-
-                        <p class="section-subtitle">Search with multiple filters and options</p>
-                        <div class="control-row">
-
-                        </div> <button class="control-btn" id="leftBtn"><span></span></button>
-
-                        <button class="control-btn" id="downBtn"><span></span></button>
-
-                        <div class="search-advanced"> <button class="control-btn" id="rightBtn"><span></span></button>
-
-                            <div class="search-filters"> </div>
-
-                            <div class="filter-group">
-                                <div class="control-row">
-
-                                    <label>Search Type</label> <button class="control-btn drop-btn" id="dropBtn"><span>
-                                            DROP</span></button>
-
-                                    <select id="searchType" class="filter-select">
-                                </div>
-
-                                <option value="formula">Formula Search</option>
-                            </div>
-
-                            <option value="text">Text Search</option>
-                        </div>
-
-                        <option value="both">Both</option>
-                        <div class="game-controls">
-
-                            </select> <button id="startBtn" class="btn btn-primary">
-
-                        </div> <span class="btn-icon"></span>
-
-                        <div class="filter-group"> <span class="btn-text">Start Game</span>
-
-                            <label>Category</label> </button>
-
-                            <select id="category" class="filter-select"> <button id="pauseBtn"
-                                    class="btn btn-secondary hidden">
-
-                                    <option value="all">All Categories</option> <span class="btn-icon"></span>
-
-                                    <option value="algebra">Algebra</option> <span class="btn-text">Pause</span>
-
-                                    <option value="calculus">Calculus</option>
-                                </button>
-
-                                <option value="geometry">Geometry</option>
-                        </div>
-
-                        <option value="statistics">Statistics</option>
-                        <footer class="game-footer">
-
-                            <option value="physics">Physics</option>
-                            <p>Created by <strong>Abdelouahab Mostafa</strong> | 2025</p>
-
-                            <option value="trigonometry">Trigonometry</option>
-                            <p class="footer-subtitle">Glass-morphism Edition</p>
-
-                            </select>
-                        </footer>
-
-                    </div>
-                </div>
-
-                <div class="filter-group">
-                    <script src="script.js"></script>
-
-                    <label>Difficulty</label>
-    </body>
-
-    <select id="difficulty" class="filter-select">
-
-        <option value="all">All Levels</option>
-
-</html>
-<option value="basic">Basic</option>
-<option value="intermediate">Intermediate</option>
-<option value="advanced">Advanced</option>
-</select>
-</div>
-</div>
-
-<div class="search-box-advanced">
-    <input type="text" class="search-input-advanced" id="advancedSearch"
-        placeholder="Enter your mathematical expression...">
-    <button class="search-btn-advanced" id="advancedSearchBtn">Search</button>
-</div>
-
-<div class="search-results" id="searchResults">
-    <!-- Results will be populated here -->
-</div>
-</div>
-</div>
-</section>
-
-<!-- Formula Library -->
-<section id="formulas" class="formulas-section">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Formula Library</h2>
-            <p class="section-subtitle">Browse popular mathematical formulas</p>
-        </div>
-
-        <div class="formula-categories">
-            <button class="category-btn active" data-category="all">All</button>
-            <button class="category-btn" data-category="algebra">Algebra</button>
-            <button class="category-btn" data-category="calculus">Calculus</button>
-            <button class="category-btn" data-category="geometry">Geometry</button>
-            <button class="category-btn" data-category="physics">Physics</button>
-        </div>
-
-        <div class="formulas-grid" id="formulasGrid">
-            <!-- Formulas will be populated here -->
-        </div>
-    </div>
-</section>
-
-<!-- Calculator Section -->
-<section id="calculator" class="calculator-section">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Mathematical Calculator</h2>
-            <p class="section-subtitle">Evaluate expressions and solve equations</p>
-        </div>
-
-        <div class="calculator-wrapper">
-            <div class="calculator-display">
-                <input type="text" class="calc-input" id="calcInput"
-                    placeholder="Enter expression: e.g., 2 + 2, sqrt(16), sin(45)">
-                <div class="calc-result" id="calcResult">Result: </div>
+            <div class="days" id="day2">
+                <h2 class="date"></h2>
+                <img src="">
+                <p></p>
             </div>
-
-            <div class="calculator-buttons">
-                <button class="calc-btn number">7</button>
-                <button class="calc-btn number">8</button>
-                <button class="calc-btn number">9</button>
-                <button class="calc-btn operator">÷</button>
-                <button class="calc-btn function">sin</button>
-
-                <button class="calc-btn number">4</button>
-                <button class="calc-btn number">5</button>
-                <button class="calc-btn number">6</button>
-                <button class="calc-btn operator">×</button>
-                <button class="calc-btn function">cos</button>
-
-                <button class="calc-btn number">1</button>
-                <button class="calc-btn number">2</button>
-                <button class="calc-btn number">3</button>
-                <button class="calc-btn operator">-</button>
-                <button class="calc-btn function">tan</button>
-
-                <button class="calc-btn number">0</button>
-                <button class="calc-btn number">.</button>
-                <button class="calc-btn operator">=</button>
-                <button class="calc-btn operator">+</button>
-                <button class="calc-btn function">√</button>
-
-                <button class="calc-btn special">π</button>
-                <button class="calc-btn special">e</button>
-                <button class="calc-btn special">(</button>
-                <button class="calc-btn special">)</button>
-                <button class="calc-btn clear">C</button>
+            <div class="days" id="day3">
+                <h2 class="date"></h2>
+                <img src="">
+                <p></p>
+            </div>
+            <div class="days" id="day4">
+                <h2 class="date"></h2>
+                <img src="">
+                <p></p>
+            </div>
+            <div class="days" id="day5">
+                <h2 class="date"></h2>
+                <img src="">
+                <p></p>
+            </div>
             </div>
         </div>
     </div>
-</section>
-
-<!-- About Section -->
-<section id="about" class="about-section">
-    <div class="container">
-        <div class="about-content">
-            <div class="about-text">
-                <h2 class="section-title">About MathSearch Pro</h2>
-                <p>MathSearch Pro is an advanced mathematical search engine designed to help students, researchers, and
-                    mathematics enthusiasts find mathematical formulas, equations, and expressions quickly and
-                    efficiently.</p>
-                <div class="features-list">
-                    <div class="feature-item">
-                        <span class="feature-icon">🔍</span>
-                        <div>
-                            <h4>Smart Search</h4>
-                            <p>Search using LaTeX, plain text, or mathematical symbols</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">📚</span>
-                        <div>
-                            <h4>Extensive Library</h4>
-                            <p>Access thousands of formulas across multiple categories</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">🧮</span>
-                        <div>
-                            <h4>Built-in Calculator</h4>
-                            <p>Evaluate expressions and solve equations instantly</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">⚡</span>
-                        <div>
-                            <h4>Fast & Responsive</h4>
-                            <p>Lightning-fast search with real-time results</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="about-stats">
-                <div class="stat-card">
-                    <div class="stat-number">10,000+</div>
-                    <div class="stat-label">Formulas</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">50+</div>
-                    <div class="stat-label">Categories</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">100K+</div>
-                    <div class="stat-label">Searches/Month</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Footer -->
-<footer class="footer">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>MathSearch Pro</h3>
-                <p>Advanced mathematical search engine for students and researchers worldwide.</p>
-            </div>
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <a href="#home">Home</a>
-                <a href="#search">Search</a>
-                <a href="#formulas">Formulas</a>
-                <a href="#calculator">Calculator</a>
-            </div>
-            <div class="footer-section">
-                <h4>Resources</h4>
-                <a href="#">Documentation</a>
-                <a href="#">API</a>
-                <a href="#">LaTeX Guide</a>
-                <a href="#">Help Center</a>
-            </div>
-            <div class="footer-section">
-                <h4>Contact</h4>
-                <p>Created by <strong>Abdelouahab Mostafa</strong></p>
-                <p>© 2025 All rights reserved</p>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<script src="script.js"></script>
 </body>
-
 </html>

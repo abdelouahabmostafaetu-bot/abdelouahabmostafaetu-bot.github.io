@@ -1,0 +1,93 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+.sky {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #87CEEB, #ffffff);
+    position: relative;
+}
+
+.cloud {
+    background: #fff;
+    border-radius: 50%;
+    position: absolute;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.cloud1, .cloud2, .cloud3 {
+    width: 200px;
+    height: 60px;
+}
+
+.cloud1 {
+    top: 20%;
+    left: 10%;
+}
+
+.cloud2 {
+    top: 40%;
+    left: 50%;
+}
+
+.cloud3 {
+    top: 70%;
+    left: 30%;
+}
+
+/* Cloud shapes */
+.cloud1::before, .cloud1::after,
+.cloud2::before, .cloud2::after,
+.cloud3::before, .cloud3::after {
+    content: '';
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.cloud1::before {
+    width: 100px;
+    height: 100px;
+    top: -30px;
+    left: 20px;
+}
+
+.cloud1::after {
+    width: 120px;
+    height: 120px;
+    top: -40px;
+    left: 100px;
+}
+
+.cloud2::before {
+    width: 80px;
+    height: 80px;
+    top: -20px;
+    left: 60px;
+}
+
+.cloud2::after {
+    width: 100px;
+    height: 100px;
+    top: -30px;
+    left: 140px;
+}
+
+.cloud3::before {
+    width: 90px;
+    height: 90px;
+    top: -25px;
+    left: 50px;
+}
+
+.cloud3::after {
+    width: 110px;
+    height: 110px;
+    top: -35px;
+    left: 130px;
+}
