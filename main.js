@@ -1,43 +1,43 @@
 const apiKey = '028c03d45e069148e45a04ffd902d490';
 
-async function currentWeatherData(city){
+async function currentWeatherData(city) {
     const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-    try{
+    try {
         const response = await fetch(currentWeatherUrl);
-        if(!response.ok){
+        if (!response.ok) {
             throw new Error('Something went wrong!');
         }
         return await response.json();
-    }catch(error){
+    } catch (error) {
         console.error('Error fetching current weather data', error);
     }
 }
 
 
-async function forecastWeatherData(city){
+async function forecastWeatherData(city) {
     const forecastWeatherUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
-    try{
+    try {
         const response = await fetch(forecastWeatherUrl);
-        if(!response.ok){
+        if (!response.ok) {
             throw new Error('Somthing went wrong');
         }
         return await response.json();
-    }catch(error){
+    } catch (error) {
         console.error('Error fetching forecast weather data', error);
     }
 }
 
 
-function getWindDirection(degree){
+function getWindDirection(degree) {
     const directions = ["North", "Northeast", "East", "Southeast", "South", "Southwest", "West", "Northwest"];
     let index = Math.round((degree / 45) % 8);
-    if(index === 8)
+    if (index === 8)
         index = 0;
     return directions[index];
 }
 
 
-function setCurrentInfo(currentData){
+function setCurrentInfo(currentData) {
     const cityName = document.getElementById('city-name');
     const temp = document.getElementById('temp');
     const description = document.getElementById('description');
@@ -48,7 +48,7 @@ function setCurrentInfo(currentData){
     const windDegree = document.getElementById('wind-degree');
     cityName.innerHTML = currentData.name;
     temp.innerHTML = Math.round(currentData.main.temp) + '°';
-    description.innerHTML = currentData.weather[0].description; 
+    description.innerHTML = currentData.weather[0].description;
     humidity.innerHTML = 'Humidity:  ' + currentData.main.humidity + ' %';
     feelsLike.innerHTML = 'Feels like:  ' + Math.round(currentData.main.feels_like) + '°';
     pressure.innerHTML = 'Pressure:  ' + (currentData.main.pressure) + ' mbar';
@@ -57,7 +57,7 @@ function setCurrentInfo(currentData){
 }
 
 
-function setWeatherIcon(currentData){
+function setWeatherIcon(currentData) {
     const icon = currentData.weather[0].icon;
     const img = document.getElementById('icon');
     const img_src = `https://openweathermap.org/img/wn/${icon}@2x.png`;
@@ -67,15 +67,15 @@ function setWeatherIcon(currentData){
 
 
 
-function formatTwoDigits(time){
-    if(time <= 9){
-        return '0' + time; 
+function formatTwoDigits(time) {
+    if (time <= 9) {
+        return '0' + time;
     }
     return time;
 }
 
 
-function setTimeZone(currentData){
+function setTimeZone(currentData) {
     const sunrise = document.getElementById('sunrise-time');
     const sunset = document.getElementById('sunset-time');
     let sunriseTime = currentData.sys.sunrise;
@@ -94,15 +94,15 @@ function setTimeZone(currentData){
 }
 
 
-function formatForecastData(forecastData){
+function formatForecastData(forecastData) {
     let days = [[], [], [], [], [], []];
     let currday = new Date(forecastData.list[0].dt * 1000);
-    let index = 0; 
-    for(i = 1; i < forecastData.list.length; i++){
+    let index = 0;
+    for (i = 1; i < forecastData.list.length; i++) {
         let date = new Date(forecastData.list[i].dt * 1000);
-        if(date.getUTCDate() === currday.getUTCDate()){
+        if (date.getUTCDate() === currday.getUTCDate()) {
             days[index].push(forecastData.list[i]);
-        }else{
+        } else {
             index++;
             days[index].push(forecastData.list[i]);
             currday = date;
@@ -115,9 +115,9 @@ function formatForecastData(forecastData){
 
 
 
-function formatDay(date){
+function formatDay(date) {
     let day;
-    switch(date){
+    switch (date) {
         case 0: day = 'Sunday'; break;
         case 1: day = 'Monday'; break;
         case 2: day = 'Tuesday'; break;
@@ -127,11 +127,11 @@ function formatDay(date){
         case 6: day = 'Saturday'; break;
     }
     return day;
-}   
+}
 
 
 
-function setForecastInfo(daysData){
+function setForecastInfo(daysData) {
     let days = [];
     days[0] = document.getElementById('day1');
     days[1] = document.getElementById('day2');
@@ -139,8 +139,8 @@ function setForecastInfo(daysData){
     days[3] = document.getElementById('day4');
     days[4] = document.getElementById('day5');
     days[5] = document.getElementById('day6');
-    for(i = 0; i < days.length; i++){
-        if(!daysData[i][0]){
+    for (i = 0; i < days.length; i++) {
+        if (!daysData[i][0]) {
             continue;
         }
         const icon = daysData[i][0].weather[0].icon;
@@ -162,40 +162,40 @@ function setForecastInfo(daysData){
 document.addEventListener('DOMContentLoaded', () => {
     const btn = document.getElementById('sub-btn');
     const inputBox = document.getElementById('input-box');
-    
+
     // Function to fetch and display weather
     async function getWeather() {
         const city = inputBox.value.trim();
-        if(city){
+        if (city) {
             let currentData, forecastData;
-            try{
+            try {
                 [currentData, forecastData] = await Promise.all([
                     currentWeatherData(city),
                     forecastWeatherData(city)
                 ]);
-                
-                if(currentData && forecastData) {
+
+                if (currentData && forecastData) {
                     setCurrentInfo(currentData);
                     setTimeZone(currentData);
                     setWeatherIcon(currentData);
                     setForecastInfo(formatForecastData(forecastData));
                 }
-            }catch(error){
+            } catch (error) {
                 console.error('Error fetching weather data', error);
                 alert('City not found! Please enter a valid city name.');
             }
         }
-        else{
+        else {
             alert('Please enter a city name!');
         }
     }
-    
+
     // Button click event
     btn.addEventListener('click', getWeather);
-    
+
     // Enter key press event
     inputBox.addEventListener('keypress', (e) => {
-        if(e.key === 'Enter') {
+        if (e.key === 'Enter') {
             getWeather();
         }
     });
