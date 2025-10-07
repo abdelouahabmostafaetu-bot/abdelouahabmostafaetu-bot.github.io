@@ -159,10 +159,13 @@ function setForecastInfo(daysData){
 
 
 
-document.addEventListener('DOMContentLoaded', () =>{
+document.addEventListener('DOMContentLoaded', () => {
     const btn = document.getElementById('sub-btn');
-    btn.addEventListener('click', async () =>{
-        city = document.getElementById('input-box').value;
+    const inputBox = document.getElementById('input-box');
+    
+    // Function to fetch and display weather
+    async function getWeather() {
+        const city = inputBox.value.trim();
         if(city){
             let currentData, forecastData;
             try{
@@ -170,19 +173,30 @@ document.addEventListener('DOMContentLoaded', () =>{
                     currentWeatherData(city),
                     forecastWeatherData(city)
                 ]);
+                
+                if(currentData && forecastData) {
+                    setCurrentInfo(currentData);
+                    setTimeZone(currentData);
+                    setWeatherIcon(currentData);
+                    setForecastInfo(formatForecastData(forecastData));
+                }
             }catch(error){
-                console.error('error fetching weather data', error);
+                console.error('Error fetching weather data', error);
+                alert('City not found! Please enter a valid city name.');
             }
-            setCurrentInfo(currentData);
-            setTimeZone(currentData);
-            setWeatherIcon(currentData);
-            setForecastInfo(formatForecastData(forecastData));
-            formatForecastData(forecastData);
         }
         else{
-            console.error('input field is empty!');
+            alert('Please enter a city name!');
+        }
+    }
+    
+    // Button click event
+    btn.addEventListener('click', getWeather);
+    
+    // Enter key press event
+    inputBox.addEventListener('keypress', (e) => {
+        if(e.key === 'Enter') {
+            getWeather();
         }
     });
 });
-    
-    
